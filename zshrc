@@ -141,6 +141,7 @@ export PATH=$PATH:$HOME/.pulumi/bin
 #curl ifconfig.co
 
 ### RANDOM COLOR SCRIPT ###
+#https://gitlab.com/dwt1/shell-color-scripts
 colorscript random
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
