@@ -9,7 +9,7 @@ fi
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/home/viet/.oh-my-zsh"
+export ZSH="$HOME/.oh-my-zsh"
 
 
 # Set name of the theme to load --- if set to "random", it will
@@ -78,7 +78,7 @@ HIST_STAMPS="mm/dd/yyyy"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(aws colored-man-pages extract history docker docker-compose brew git jump kubectl helm)
+plugins=(aws colored-man-pages extract history docker docker-compose brew git jump kubectl helm fzf web-search zsh-autosuggestions zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -108,15 +108,20 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+# load homebrew
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
 # Nodejs multi version
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
+# Load rbenv automatically
+eval "$(rbenv init - zsh)"
+
 # Golang
-export GOROOT=/usr/local/go
 export GOPATH=$HOME/gocodes
-export PATH=$GOPATH/bin:$GOROOT/bin:$PATH 
+export PATH=$GOPATH/bin:$PATH
 
 # Add .NET Core SDK tools
 export PATH="$PATH:$HOME/.dotnet/tools"
@@ -139,6 +144,7 @@ export PATH=$PATH:$HOME/.pulumi/bin
 #neofetch
 #curl wttr.in/Melbourne
 #curl ifconfig.co
+#curl cheat.sh
 
 ### RANDOM COLOR SCRIPT ###
 #https://gitlab.com/dwt1/shell-color-scripts
