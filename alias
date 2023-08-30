@@ -20,9 +20,19 @@ alias rm="rm -i"
 alias cp="cp -i"
 alias mv="mv -i"
 alias cat="bat --theme=1337"
-#alias vim="nvim"
+alias vim="nvim"
+alias ping="prettyping --nolegend"
 
-#alias aws="docker run --rm -it -v ~/.aws:/root/.aws -v $(pwd):/aws amazon/aws-cli"
+#alias aws="docker run --rm -it amazon/aws-cli"
+alias aws="docker run --rm -it -v ~/.aws:/root/.aws -v $(pwd):/aws amazon/aws-cli"
+
+#alias az="docker run --rm -it mcr.microsoft.com/azure-cli"
+#alias az="docker run --rm -it -v ~/.ssh:/root/.ssh mcr.microsoft.com/azure-cli"
+
+#alias gcloud="docker run --rm -it gcr.io/google.com/cloudsdktool/google-cloud-cli:latest"
+
+alias testssl="docker run --rm -it drwetter/testssl.sh"
+#alias prowler="docker run --rm -it -v $(pwd):/prowler/output toniblyx/prowler"
 
 export DOTNET_CLI_TELEMETRY_OPTOUT=1
 
