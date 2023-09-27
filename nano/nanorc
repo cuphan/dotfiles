@@ -1,0 +1,13 @@
+include "~/bin/dotfiles/nano/python.nanorc"
+include "~/bin/dotfiles/nano/ruby.nanorc"
+include "~/bin/dotfiles/nano/php.nanorc"
+include "~/bin/dotfiles/nano/Dockerfile.nanorc"
+include "~/bin/dotfiles/nano/go.nanorc"
+#include "~/bin/dotfiles/nano/json.nanorc"
+include "~/bin/dotfiles/nano/swift.nanorc"
+#include "~/bin/dotfiles/nano/yaml.nanorc"
+
+set speller "aspell -c -x"
+set autoindent
+set smooth
+set const

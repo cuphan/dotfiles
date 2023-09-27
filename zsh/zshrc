@@ -1,0 +1,469 @@
+# This is my zshrc file
+# http://www.cyberciti.biz/tips/bash-aliases-mac-centos-linux-unix.html
+# http://www.bashoneliners.com/
+# http://www.commandlinefu.com/commands/browse
+
+#export PAGER="most -s"
+export EDITOR="nvim"
+export TERM="xterm-256color"
+export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/go/bin:/usr/local/sbin:/opt/X11/bin:$PATH"
+export GOPATH=$HOME/gocodes
+
+alias tree="tree -C"
+alias nano="nano -c"
+alias pico="pico -c"
+alias ls=exa
+alias ll="exa -l"
+alias la="ls -lha"
+alias cls="clear"
+alias rm="rm -i"
+alias cp="cp -i"
+alias mv="mv -i"
+alias cat="bat --theme=1337"
+#alias vim="nvim"
+
+## Colorize the grep command output for ease of use (good for log files)##
+#alias grep='grep --color=auto -Rn'
+alias grep='grep --color=auto'
+#alias egrep='egrep --color=auto'
+#alias fgrep='fgrep --color=auto'
+
+## get rid of command not found ##
+alias cd..='cd ..'
+
+## a quick way to get out of current directory ##
+alias ~='cd ~'
+alias ..='cd ..'
+alias ...='cd ../../../'
+alias ....='cd ../../../../'
+alias .....='cd ../../../../'
+alias .4='cd ../../../../'
+alias .5='cd ../../../../..'
+
+# install  colordiff package :)
+#alias diff='opendiff'
+
+# Set vim as default
+alias vi=vim
+alias svi="sudo vi"
+alias vis='vim "+set si"'
+alias edit="vim"
+alias vimhost="sudo vim /etc/hosts"
+alias dotfile="s ~/bin/dotfiles/zsh/zshrc"
+
+#alias flushdns="dscacheutil -flushcache;sudo killall -HUP mDNSResponder;say flushed"
+
+# Opens current directory in MacOS Finder
+alias f="open -a Finder ./"
+
+#top after sending count ECHO_REQUEST packets #
+#alias ping="ping -c 5"
+
+# Do not wait interval 1 second, go fast #
+#alias fping='ping -c 20 -i 0.2'
+alias ping="prettyping --nolegend"
+
+# Show open ports
+# can be run with sudo
+alias ports='sudo lsof -i -P | grep -i "listen"'
+
+# DNS flush
+#alias flush="sudo killall -HUP mDNSResponder"
+
+# echo "Hello World" | openssl sha1
+#alias sha1="openssl sha1"
+#alias md5="openssl md5"
+
+alias mount="mount | column -t"
+alias h="history"
+alias j="jobs -l"
+
+alias path='echo -e ${PATH//:/\\n}'
+alias now='date +"%T"'
+#alias nowtime=now
+#alias nowdate='date +"%d-%m-%Y"'
+alias today="date +'%d-%m-%Y'"
+
+# restart Apache
+#alias apacherestart="sudo apachectl restart"
+
+# copy the working directory path to clipboard
+alias cpwd='pwd | tr -d "\n" | pbcopy'
+
+# Quick preview the file
+#alias qlf="qlmanage -p"
+
+#copy output of last command to clipboard
+#alias cl="fc -e -| pbcopy"
+
+#alias speedtest="wget -O /dev/null http://speedtest.wdc01.softlayer.com/downloads/test10.zip"
+#alias airport="/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport -s"
+
+# need run with sudo
+#alias restart="sudo shutdown -r now"
+
+#Reveal open TCP and UDP ports and the applications using them 
+alias openports="sudo lsof -i | grep ESTABLISHED"
+
+#Scan a network and find out which servers and devices are up and running
+#alias scan="nmap -sP 192.168.1.0/24"
+
+alias df="df -Ha"
+
+# go to that folder and run du
+#alias duf="du -ach | sort -h"
+
+#alias myip="curl http://ipecho.net/plain; echo"
+alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
+alias ipl="ifconfig -a | perl -nle'/(\d+\.\d+\.\d+\.\d+)/ && print $1'"
+alias wget="wget -c"
+
+# search the command run before
+# histg java
+#alias histg="history | grep"
+
+# URL-encode/decode strings
+#alias urlencode='python -c "import sys, urllib as ul; print ul.quote_plus(sys.argv[1]);"'
+#alias urldecode='python -c "import sys, urllib as ul; print ul.unquote_plus(sys.argv[1]);"'
+
+alias sshkey="cat ~/.ssh/id_rsa.pub | pbcopy && echo 'Copied to clipboard.'"
+
+# List top ten largest files/directories in current directory
+alias ducks="du -cksh * | sort -rn | head -11"
+
+# start the server from this folder
+# go to any folder and type server
+#alias server="python -m SimpleHTTPServer"
+
+# Merge PDF files
+# Usage: `mergepdf -o output.pdf input{1,2,3}.pdf`
+#alias mergepdf='/System/Library/Automator/Combine\ PDF\ Pages.action/Contents/Resources/join.py'
+
+# Go to that directory and list it
+function cdls { 
+    if [ $# != 1 ]; then
+		echo "Usage: cdls <your-dir>"
+	else
+		cd $1; ls;
+	fi
+}
+
+#function word {
+#	if [ $# != 1 ]; then
+#		echo "Usage: word <your-word>"
+#	else
+#    	grep $1 /usr/share/dict/web2
+#    	grep $1 /usr/share/dict/web2a
+#    fi
+#}
+
+# Moves a file to the MacOS trash
+function trash() { 
+    command mv "$@" ~/.Trash; 
+}
+
+# Remind yourself of an alias (given some part of it)
+function showa() {
+    grep --color=always -i -a1 $@ ~/bin/dotfiles/zsh/zshrc | grep -v '^\s*$' | less -FSRXc;
+}
+
+# create and jumb to that folder
+function mkcd() {
+    if [ $# != 1 ]; then
+        echo "Usage: mkcd <dir>"
+    else
+        mkdir $1
+        cd $1
+    fi
+}
+
+# check the folder size
+function fsize() {
+    du -sch $1
+}
+
+# check services run or not
+# psg java OR psg tomcat
+function psg() {
+    ps aux | grep "$1"
+}
+
+# whois a domain or a URL
+#function whois() {
+	# get domain from URL
+#	local domain=$(echo "$1" | awk -F/ '{print $3}')
+
+#	if [ -z $domain ]; then
+#		domain=$1
+#	fi
+	
+#	echo "Getting whois record for: $domain …"
+
+	# avoid recursion, strip extra fluff
+#	/usr/bin/whois -h whois.internic.net $domain | sed '/NOTICE:/q'
+#}
+
+# Uncompress all zip files
+#function extract {
+#    if [ -z "$1" ]; then
+        # display usage if no parameters given
+#        echo "Usage: extract <path/file_name>.<zip|rar|bz2|gz|tar|tbz2|tgz|Z|7z|xz|ex|tar.bz2|tar.gz|tar.xz>"
+#    else
+#        if [ -f $1 ] ; then
+            # NAME=${1%.*}
+            # mkdir $NAME && cd $NAME
+#            case $1 in
+#                *.tar.bz2)   tar xvjf ../$1    ;;
+#                *.tar.gz)    tar xvzf ../$1    ;;
+#                *.tar.xz)    tar xvJf ../$1    ;;
+#                *.lzma)      unlzma ../$1      ;;
+#                *.bz2)       bunzip2 ../$1     ;;
+#                *.rar)       unrar x -ad ../$1 ;;
+#                *.gz)        gunzip ../$1      ;;
+#                *.tar)       tar xvf ../$1     ;;
+#                *.tbz2)      tar xvjf ../$1    ;;
+#                *.tgz)       tar xvzf ../$1    ;;
+#                *.zip)       unzip ../$1       ;;
+#                *.Z)         uncompress ../$1  ;;
+#                *.7z)        7z x ../$1        ;;
+#                *.xz)        unxz ../$1        ;;
+#                *.exe)       cabextract ../$1  ;;
+#                *)           echo "extract: '$1' - unknown archive method" ;;
+#            esac
+#        else
+#            echo "$1 - file does not exist"
+#        fi
+#    fi
+#}
+
+# display use cmd frequency
+#function freqcmds {
+#    history | awk '{CMD[$2]++;count++;}END { for (a in CMD)print CMD[a] " " CMD[a]/count*100 "% " a;}' | grep -v "./" | column -c3 -s " " -t | sort -nr | nl |  head -n10
+#}
+
+# go up folder n times
+#function up() {
+#  local d=""
+#  limit=$1
+#  for ((i=1 ; i <= limit ; i++))
+#    do
+#      d=$d/..
+#    done
+#  d=$(echo $d | sed 's/^\///')
+#  if [ -z "$d" ]; then
+#    d=..
+#  fi
+#  cd $d
+#}
+
+#netinfo - shows network information for your system BUT not work on Mac
+#netinfo() {
+#    echo "--------------- Network Information ---------------"
+#    /sbin/ifconfig | awk /'inet addr/ {print $2}'
+#    /sbin/ifconfig | awk /'Bcast/ {print $3}'
+#    /sbin/ifconfig | awk /'inet addr/ {print $4}'
+#    /sbin/ifconfig | awk /'HWaddr/ {print $4,$5}'
+#    /sbin/ifconfig | awk /'inet6 addr/ {print $1,$2,$3}'
+#    myip=`lynx -dump -hiddenlinks=ignore -nolist http://checkip.dyndns.org:8245/ | sed '/^$/d; s/^[ ]*//g; s/[ ]*$//g' `
+#    echo "${myip}"
+#    echo "---------------------------------------------------"
+#}
+
+# google it
+#google() { 
+#	open /Applications/Google\ Chrome.app/ "https://www.google.com.au/search?q=$1"; 
+#}
+
+# show the usage of memory
+#free() {
+#    FREE_BLOCKS=$(vm_stat | grep free | awk '{ print $3 }' | sed 's/\.//')
+#    INACTIVE_BLOCKS=$(vm_stat | grep inactive | awk '{ print $3 }' | sed 's/\.//')
+#    SPECULATIVE_BLOCKS=$(vm_stat | grep speculative | awk '{ print $3 }' | sed 's/\.//')
+
+#    FREE=$((($FREE_BLOCKS+SPECULATIVE_BLOCKS)*4096/1048576))
+#    INACTIVE=$(($INACTIVE_BLOCKS*4096/1048576))
+#    TOTAL=$((($FREE+$INACTIVE)))
+
+#    echo Free      : $FREE MB
+#    echo Inactive  : $INACTIVE MB
+#    echo Total free: $TOTAL MB
+#}
+
+# kill function
+#function kill() {
+    # to see $1 is run or now, it will display the PID
+#    pgrep $1
+
+    # the kill command that actually kill the app based on PID
+#    pkill -9 $1
+#}
+
+# Very fast download
+#function dl1() {
+#    axel -a "$1"
+#}
+
+# Very fast download
+#function dl2() {
+#	aria2c --file-allocation=none "$1"
+#}
+
+# start MongoDB server
+#function startmongo() {
+#    echo "Starting MongoDB on this terminal, press ctr+c to stop";
+#    mongod --config /usr/local/mongodb/mongod.conf --rest --httpinterface
+#}
+
+# start Redis server
+#function startredis() {
+#    echo "Starting Redis on this terminal, press ctr+c to stop";
+#    /usr/local/redis/src/redis-server
+#}
+
+# Simple calculator
+# calc 2 + 3
+#function calc() {
+#    local result="";
+#    result="$(printf "scale=10;$*\n" | bc --mathlib | tr -d '\\\n')";
+    #                       └─ default (when `--mathlib` is used) is 20
+    #
+#    if [[ "$result" == *.* ]]; then
+        # improve the output for decimal numbers
+#        printf "$result" |
+#        sed -e 's/^\./0./'        `# add "0" for cases like ".5"` \
+#            -e 's/^-\./-0./'      `# add "0" for cases like "-.5"`\
+#            -e 's/0*$//;s/\.$//';  # remove trailing zeros
+#    else
+#        printf "$result";
+#    fi;
+
+#    printf "\n";
+#}
+
+# Create a data URL from a file
+#function dataurl() {
+#    local mimeType=$(file -b --mime-type "$1");
+
+#    if [[ $mimeType == text/* ]]; then
+#        mimeType="${mimeType};charset=utf-8";
+#    fi
+    
+#    echo "data:${mimeType};base64,$(openssl base64 -in "$1" | tr -d '\n')";
+#}
+
+# Run `dig` and display the most useful info
+#  digga jmango360.com
+#function digga() {
+#    dig +nocmd "$1" any +multiline +noall +answer;
+#}
+
+# `tre` is a shorthand for `tree` with hidden files and color enabled, ignoring
+# the `.git` directory, listing directories first. The output gets piped into
+# `less` with options to preserve color and line numbers, unless the output is
+# small enough for one screen.
+function tre() {
+    tree -aC -I '.git|node_modules|bower_components' --dirsfirst "$@" | less -FRNX;
+}
+
+# Start an HTTP server from a directory, optionally specifying the port
+#function server() {
+#    local port="${1:-8000}";
+
+    # Set the default Content-Type to `text/plain` instead of `application/octet-stream`
+    # And serve everything as UTF-8 (although not technically correct, this doesn’t break anything for binary files)
+#    sleep 1 && open "http://localhost:${port}/" & python -c $'import SimpleHTTPServer;\nmap = SimpleHTTPServer.SimpleHTTPRequestHandler.extensions_map;\nmap[""] = "text/plain";\nfor key, value in map.items():\n\tmap[key] = value + ";charset=UTF-8";\nSimpleHTTPServer.test();' "$port";
+#}
+
+# Start a PHP server from a directory, optionally specifying the port
+# (Requires PHP 5.4.0+.)
+#function phpserver() {
+#    local port="${1:-4000}";
+#    local ip=$(ipconfig getifaddr en0);
+
+#    sleep 1 & open "http://${ip}:${port}/" & php -S "${ip}:${port}";
+#}
+
+# Syntax-highlight JSON strings or files
+# Usage: `json '{"foo":42}'` or `echo '{"foo":42}' | json`
+#function json() {
+#    if [ -t 0 ]; then # argument
+#        python -mjson.tool <<< "$*" | pygmentize -l javascript;
+#    else # pipe
+#        python -mjson.tool | pygmentize -l javascript;
+#    fi;
+#}
+
+# Print out current calendar with highlighted day
+#function calendar() {
+#    if [[ ! -f /usr/bin/cal ]] ; then
+#        echo "Please install cal before trying to use it!"
+#        return
+#    fi
+#    if [[ "$#" = "0" ]] ; then
+#        cal | egrep -C 40 --color "\<$(date +%e| tr -d ' ')\>"
+#    else
+#        cal $@ | egrep -C 40 --color "\<($(date +%B)|$(date +%e | tr -d ' '))\>"
+#    fi
+#}
+
+# `s` with no arguments opens the current directory in Sublime Text 
+# otherwise opens the given location
+function s() {
+    if [ $# -eq 0 ]; then
+        /Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl .;
+    else
+        /Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl "$@";
+    fi;
+}
+
+# `v` with no arguments opens the current directory in Visual Studio Code, 
+# otherwise opens the given location
+function v() {
+    if [ $# -eq 0 ]; then
+        /Applications/Visual\ Studio\ Code.app/Contents/MacOS/Electron .;
+    else
+        /Applications/Visual\ Studio\ Code.app/Contents/MacOS/Electron "$@";
+    fi;
+}
+
+# `o` with no arguments opens the current directory, 
+# otherwise opens the given location
+function o() {
+    if [ $# -eq 0 ]; then
+        open .;
+    else
+        open "$@";
+    fi;
+}
+
+# Copy w/ progress
+function cp_p () {
+	rsync -WavP --human-readable --progress $1 $2
+}
+
+# get gzipped size
+#function gz() {
+#	echo "orig size    (bytes): "
+#	cat "$1" | wc -c
+
+#	echo "gzipped size (bytes): "
+#	gzip -c "$1" | wc -c
+#}
+
+#Desc: Find out frequency of words in a file
+function word_freq() {
+    if [ $# -ne 1 ]; then
+        echo "Usage: $0 filename";
+        exit -1 
+    fi
+
+    filename=$1
+
+    egrep -o "\b[[:alpha:]]+\b" $filename | \
+    awk '{ count[$0]++ }
+        END{ printf("%-14s%s\n", "Word", "Count");
+            for(ind in count) { 
+                printf("%-14s%d\n", ind, count[ind]); 
+            }
+        }'
+}

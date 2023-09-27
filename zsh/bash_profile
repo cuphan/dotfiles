@@ -1,0 +1,23 @@
+export JAVA_HOME=`/usr/libexec/java_home`
+export ANT_HOME="/usr/local/ant"
+export MAVEN_HOME="/usr/local/maven"
+export GROOVY_HOME="/usr/local/groovy"
+export GRAILS_HOME="/usr/local/grails"
+export GRADLE_HOME="/usr/local/gradle"
+export CASSANDRA_HOME="/usr/local/cassandra"
+export HADOOP_HOME="/usr/local/hadoop"
+export MONGODB_HOME="/usr/local/mongodb"
+export PLAY_HOME="/usr/local/play"
+export GWT_HOME="/usr/local/gwt"
+export VERTX_HOME="/usr/local/vertx"
+export SWIFT_HOME="/usr/local/swift"
+export ANDROID_HOME="/Applications/Android Studio.app/sdk"
+export PACKER_HOME="/usr/local/packer"
+export GO_HOME="/usr/local/go"
+PATH=${JAVA_HOME}/bin:${ANT_HOME}/bin:${MAVEN_HOME}/bin:${GROOVY_HOME}/bin:${GRAILS_HOME}/bin:${GRADLE_HOME}/bin:${CASSANDRA_HOME}/bin:${HADOOP_HOME}/bin:${MONGODB_HOME}/bin:${PLAY_HOME}:${GWT_HOME}:${VERTX_HOME}/bin:${SWIFT_HOME}/bin:${ANDROID_HOME}/platform-tools:${ANDROID_HOME}/tools:${PACKER_HOME}:${GO_HOME}/bin:/usr/local/bin:${PATH}
+
+alias tree="tree -C"
+alias nano="nano -c"
+alias ls="ls -GpFh"
+alias la="ls -lha"
+alias cls="clear"
