@@ -1,0 +1,31 @@
+# https://docs.aws.amazon.com/cli/latest/userguide/sso-configure-profile-token.html
+[sso-session insignia-aws]
+sso_start_url = https://xxx.awsapps.com/start
+sso_region = ap-southeast-2
+sso_registration_scopes = sso:account:access
+
+[profile ioof-development]
+sso_session = insignia-aws
+sso_account_id = xxx
+sso_start_url = https://xxx.awsapps.com/start
+sso_region = ap-southeast-2
+sso_role_name = AdministratorAccess
+region = ap-southeast-2
+output = json
+
+[profile ioof-production]
+sso_session = insignia-aws
+so_account_id = xxx
+sso_start_url = https://xxx.awsapps.com/start
+sso_region = ap-southeast-2
+sso_role_name = AdministratorAccess
+region = ap-southeast-2
+output = json
+
+[profile personal]
+region = ap-southeast-2
+output = json
+
+[profile sandbox]
+region = us-east-1
+output = json
